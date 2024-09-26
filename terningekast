@@ -1,0 +1,84 @@
+namespace terningekast
+{
+    internal class Program
+    {
+
+        static int terningeslag() //laver en funktion - altså vores terningeslag
+        {
+            Random dice = new Random(); //Random er en standard class fra c#
+            return dice.Next(1, 7); //returnerer et tilfædligt tal imellem 1 ink. og 7 eksl. når den bliver kaldt
+        }
+
+        static void Main(string[] args)
+        {
+            int[] terning1slag = new int[100]; //opretter et int array med 100 elementer
+            int[] terning2slag = new int[100]; //opretter endnu et int array med 100 elementer (altså 100 terningekast)
+
+            for (int i = 0; i < 100; i++) //laver en for loop, som starter ved 0 og løber igennem 100 gange - 
+            {
+                terning1slag[i] = terningeslag(); //tildeler element nr i en værdi fra funktionen som bliver kaldt
+                terning2slag[i] = terningeslag(); //samme
+            }
+
+
+            //Hvor mange af de enkelte slag blev der slået ( toere, treere, firere, etc)
+
+            int enere = 0; //opretter en tæller - den er lig med 0 for vi har ingen enere endnu
+            int toere = 0;
+            int treere = 0;
+            int firere = 0;
+            int femmere = 0;
+            int seksere = 0;
+            for (int i = 0; i < 100;i++)
+            {
+                if (terning1slag[i] == 1) //her tester jeg om det pågældende slag er lige med 1 - ved hjælp af en condition (if)
+                    enere++; //så hvis if statementet er true, så lægges der en til (++)
+                if (terning2slag[i] == 1) //her tester jeg om det pågældende slag i terning2slag er lige med 1 - ved hjælp af en condition (if)
+                    enere++; //så hvis if statementet er true, så lægges der en til (++)
+                if (terning1slag[i] == 2)
+                    toere++;
+                if (terning2slag[i] == 2)
+                    toere++;
+                if (terning1slag[i] == 3)
+                    treere++;
+                if (terning2slag[i] == 3)
+                    treere++;
+                if (terning1slag[i] == 4)
+                    firere++;
+                if (terning2slag[i] == 4)
+                    firere++;
+                if (terning1slag[i] == 5)
+                    femmere++;
+                if (terning2slag[i] == 5)
+                    femmere++;
+                if (terning1slag[i] == 6)
+                    seksere++;
+                if (terning2slag[i] == 6)
+                    seksere++;
+            }
+            Console.WriteLine("Antal 1'ere: " + enere);
+            Console.WriteLine("Antal 2'ere: " + toere);
+            Console.WriteLine("Antal 3'ere: " + treere);
+            Console.WriteLine("Antal 4'ere: " + firere);
+            Console.WriteLine("Antal 5'ere: " + femmere);
+            Console.WriteLine("Antal 6'ere: " + seksere);
+
+
+            //Hvor meget er det fuldstændige antal øjne for alle slag.
+            int øjnesum = 0; //opretter en tæller 
+            for (int i = 0; i < 100; i++) //opretter et loop med 3 statements (start, antal loops, loop tælleren forøges med 1 hver gang)  
+            {
+                øjnesum += terning1slag[i]; //lægger alle tallene fra terningslag1 i øjnesum
+                øjnesum += terning2slag[i]; ////lægger alle tallene fra terningslag2 i øjnesum
+            }
+            Console.WriteLine(); 
+            Console.WriteLine("Total antal øjne: " + øjnesum);
+
+
+            //Hvad er det gennemsnitlige resultat for slagene?
+            double øjensumdouble = øjnesum; //omskrives til double (float) for at få decimaler med 
+            Console.WriteLine();
+            Console.WriteLine("Gennemsnitslig resultat for slagene: "+ øjensumdouble/200); 
+        }
+    }
+}
